@@ -1,0 +1,50 @@
+Task 1
+======
+Please design a script that writes the numbers from 1 - 10 in random order.
+Each number should appear only once. You can use bash only.
+Please provide tests for the script, along with documentation which should include
+the following:
+● Build instructions
+● Usage
+● Description
+● Known limitations / bugs
+
+Answer
+======
+
+Build instructions & Description
+--------------------------------
+1. Create a file 'Script.sh' and give permissions
+2. Display numbers from 1-10
+3. Give the output from step2 as the input to tr (translate or delete characters) command using pipeline.
+4. Translate the space to a new line and get the output as a drop down list using 2 sets (' ' & '\n') with 'tr'.
+5. Give the output of step4 as input using pipiline to sort command with an option -R which is used for Random sort.
+6. Execute the file Script.sh
+7. Output will give numbers from 1-10 in random order without the repetition of any number. 
+
+Usage
+-----
+1. vim Script.sh
+
+#!/bin/bash
+
+echo {1..10} | tr ' ' '\n' | sort -R
+
+2. chmod 755 Script.sh
+3. ./Script.sh
+
+Known limitations/ bugs
+-----------------------
+
+I have started  and ended up with below inferences:
+
+1. $RANDOM,default bash function for generating random numbers, gives numbers which will repeat.  
+
+echo $[ ( $RANDOM % 10 )  + 1 ]
+
+2. To avoid the repetition;
+    1. We need to store the values in a file
+    2. Then compare the generated value using grep command with the file as input and conditional loops for iteration.
+       But while using conditional loops, they can end up in infinite loop or an incomplete output.
+       
+      

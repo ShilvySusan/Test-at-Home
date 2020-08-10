@@ -1,0 +1,58 @@
+Task2
+=====
+Imagine a server with the following specs:
+● 4 times Intel(R) Xeon(R) CPU E7-4830 v4 @ 2.00GHz
+● 64GB of ram
+● 2 tb HDD disk space
+● 2 x 10Gbit/s nics
+The server is used for SSL offloading and proxies around 25000 requests per second.
+Please let us know which metrics are interesting to monitor in that specific case and
+how would you do that? What are the challenges of monitoring this?
+
+Metrices I find interesting to monitor:
+======================================
+1. CPU Usage
+------------
+Since server is set up for ssl offloading and proxies, decryption and encryption of incoming traffic can consume  CPU resource highly. Also in parallel, if there are other 
+computations, it also needs to be taken care off by the CPU.
+
+2. Memory Usage
+--------------
+In a proxy network, data caching is performed by the server to speed up the requests. Also enough memory is required in the other computations of CPU as well.
+
+3. Network Traffic
+-----------------
+Incoming request can exceed the configured limitation(>2 x 10Gbit/s nics) which ends up in down network.
+
+4.Disk space usage
+-----------------
+It also needs to be monitored in case of the bulk data(2TB HDD) storage on a daily basis.
+
+5.Network Uptime
+----------------
+Availability of network to the end user.
+
+6. SSL certificate expiry
+------------------------
+SSL certificate expiry can cause inaccessibility of the system.
+
+7. DDoS and DoS Threat
+----------------------
+An unusual traffic, like one instant(DoS) or multiple instant(DDoS) continuously trying to access the system through many ports for a long time, can interrupt the service to other users.
+
+
+How would I do monitoring:
+=========================
+1. Thorough daily health checks of the system.
+2. Instant alerts for metrics exceeding the threshold value as well as for down services , network, or connectivity through mail system.
+3. Making continuous improvements in the checks of respective monitoring tool like monitoring intervals, priortised checks for certain services etc.
+4. During critical times, manual log monitoring , using command line interface tool monitoring( eg: netstat, w, top, etc).
+
+
+What are the challenges:
+========================
+1. Sometimes usage metrics exceeds threshold values for short span of time. In this case a large number of notifications can get filled with our inbox.
+2. If the above alert is customized so that whenever it occurs, a ticket will be created. Then it becomes unnecessary.
+3. Also for some reason, if we disabled the alert for a particular service and forgot to re-enable it, it can be a challenge to monitoring.
+
+
